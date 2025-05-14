@@ -1,0 +1,19 @@
+name: Build and Contain ASP.NET Razor Pages Web Application
+
+on:
+  push:
+    branches: 
+      - master
+      - develop
+  
+  pull_request:
+    branches:
+      - master
+
+jobs: 
+  job1:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Run a one-line test workflows script
+      - uses: actions/checkout@v3
+        run: echo "Hello GitHub Actions!"
