@@ -81,7 +81,8 @@ jobs:
           sudo dpkg -i trivy_0.62.1_Linux-64bit.deb
           trivy --version
           docker images
-          trivy image taskmanager-app:latest
+          trivy image -f json -o results.json taskmanager-app:latest
+          # trivy image taskmanager-app:latest
       
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
