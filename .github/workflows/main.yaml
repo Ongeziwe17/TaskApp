@@ -59,7 +59,7 @@ jobs:
           registry: docker.io
           # Username and password used to log against the Docker registry
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Docker Setup Buildx
         uses: docker/setup-buildx-action@v3.10.0
