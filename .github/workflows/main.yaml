@@ -77,7 +77,9 @@ jobs:
 
       - name: Scan Docker Image locally using Trivy
         run: |
-          sudo apt-get install trivy -y
+          wget https://github.com/aquasecurity/trivy/releases/download/v0.62.1/trivy_0.62.1_Linux-64bit.deb
+          sudo dpkg -i trivy_0.62.1_Linux-64bit.deb
+          trivy --version
           docker images
           trivy image taskmanager-app:latest
       
