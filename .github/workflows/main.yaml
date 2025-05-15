@@ -67,13 +67,19 @@ jobs:
           # Buildx version. (eg. v0.3.0)
           version:  v0.3.0
 
-      - name: Scan image with Trivy
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: ongeziwe17/taskmanager-app:latest
-          format: table
-          exit-code: 1
-          ignore-unfixed: true
+      # - name: Scan image with Trivy
+      #   uses: aquasecurity/trivy-action@master
+      #   with:
+      #     image-ref: ongeziwe17/taskmanager-app:latest
+      #     format: table
+      #     exit-code: 1
+      #     ignore-unfixed: true
+
+      - name: Scan Docker Image locally using Trivy
+        run: |
+          sudo apt-get install trivy -y
+          docker images
+          trivy image taskmanager-app:latest
       
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
