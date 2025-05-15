@@ -10,10 +10,24 @@ on:
     branches:
       - master
 
+env: 
+  DOTNET_VERSION: '8.0'
+
 jobs: 
-  job1:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Run a one-line test workflows script
-        run: echo "Hello GitHub Actions!"
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET Core for Application
+        uses: actions/setup_dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore Application Packages and Dependencies
+        run: dotnet restore
+
+      - name: Build Application
+        run: dotnet build --no-restore --configuration Release
+
