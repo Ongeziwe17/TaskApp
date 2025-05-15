@@ -79,9 +79,12 @@ jobs:
         run: |
           wget https://github.com/aquasecurity/trivy/releases/download/v0.62.1/trivy_0.62.1_Linux-64bit.deb
           sudo dpkg -i trivy_0.62.1_Linux-64bit.deb
+          sudo apt install jq
           trivy --version
+          jq --version
           docker images
           trivy image -f json -o results.json taskmanager-app:latest
+          jq . results.json
           # trivy image taskmanager-app:latest
       
       - name: Build and push Docker image
