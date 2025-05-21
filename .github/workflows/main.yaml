@@ -56,6 +56,9 @@ jobs:
       #     exit-code: 1
       #     ignore-unfixed: true
       
+      - name: Verify Docker Login
+        run: docker info
+      
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
