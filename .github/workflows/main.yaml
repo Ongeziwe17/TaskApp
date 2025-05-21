@@ -23,9 +23,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Generate timestamp tag
-        id: timestamp
-        run: echo "::set-output name=tag::$(date +'%Y%m%d-%H%M%S')"
+      - name: Generate image tag from commit
+        id: commit_hash
+        run: echo "::set-output name=tag::$(git rev-parse --short HEAD)"
 
       # - name: Setup .NET Core
       #   uses: actions/setup-dotnet@v3
@@ -41,7 +41,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5.7.0
         with:
-          images: ongeziwe17/taskapp:"${{ steps.timestamp.output.tag }}"
+          images: ongeziwe17/taskapp:${{ steps.commit_hash.outputs.tag }}
 
       # - name: Docker compose build
       #   run: docker compose -f Docker-compose.yaml build --no-cache
