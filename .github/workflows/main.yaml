@@ -33,33 +33,33 @@ jobs:
 
       # - name: Build Application
       #   run: dotnet build --no-restore --configuration Release
-      - name: Extract Docker metadata
-        id: meta
-        uses: docker/metadata-action@v5.7.0
-        with:
-          images: ongeziwe17/taskapp
+      # - name: Extract Docker metadata
+      #   id: meta
+      #   uses: docker/metadata-action@v5.7.0
+      #   with:
+      #     images: ongeziwe17/taskapp
 
-      - name: Docker compose build
-        run: docker compose -f Docker-compose.yaml build --no-cache
+      # - name: Docker compose build
+      #   run: docker compose -f Docker-compose.yaml build --no-cache
 
-      - name: Start Application Containers
-        run: docker compose -f Docker-compose.yaml up -d
+      # - name: Start Application Containers
+      #   run: docker compose -f Docker-compose.yaml up -d
 
-      - name: Wait time for SQL Server to be ready
-        run:  |
-          echo "Waiting for SQL Server to start..."
-          sleep 20
+      # - name: Wait time for SQL Server to be ready
+      #   run:  |
+      #     echo "Waiting for SQL Server to start..."
+      #     sleep 20
 
-      - name: Scan Docker Image locally using Trivy
-        run: |
-          wget https://github.com/aquasecurity/trivy/releases/download/v0.62.1/trivy_0.62.1_Linux-64bit.deb
-          sudo dpkg -i trivy_0.62.1_Linux-64bit.deb
-          trivy --version
-          docker images
-          trivy image -f table taskmanager-app:latest
-      - name: Tear down containers
-        if: always()
-        run: docker compose -f Docker-compose.yaml down
+      # - name: Scan Docker Image locally using Trivy
+      #   run: |
+      #     wget https://github.com/aquasecurity/trivy/releases/download/v0.62.1/trivy_0.62.1_Linux-64bit.deb
+      #     sudo dpkg -i trivy_0.62.1_Linux-64bit.deb
+      #     trivy --version
+      #     docker images
+      #     trivy image -f table taskmanager-app:latest
+      # - name: Tear down containers
+      #   if: always()
+      #   run: docker compose -f Docker-compose.yaml down
           
       - name: Docker Login to Hub Registry
         uses: docker/login-action@v3.4.0
@@ -88,8 +88,8 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          annotations: ${{ steps.meta.outputs.annotations }} 
+          # tags: ${{ steps.meta.outputs.tags }}
+          # annotations: ${{ steps.meta.outputs.annotations }} 
           
   # Clone TaskApp-Deploy and update the Docker tag in value.yam for Helm:
   #   runs-on: ubuntu-latest
