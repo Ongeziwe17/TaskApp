@@ -13,8 +13,8 @@ on:
   # workflow_disaptch:
   #   tag: 
 
-env: 
-  DOTNET_VERSION: '8.0'
+# env: 
+  # DOTNET_VERSION: '8.0'
 
 jobs: 
   build-and-push:
@@ -22,6 +22,10 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+
+      - name: Generate timestamp tag
+        id: timestamp
+        run: echo "::set-output name=tag::$(date +'%Y%m%d-%H%M%S')"
 
       # - name: Setup .NET Core
       #   uses: actions/setup-dotnet@v3
@@ -37,7 +41,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5.7.0
         with:
-          images: ongeziwe17/taskapp
+          images: ongeziwe17/taskapp:"${{ steps.timestamp.output.tag }}"
 
       # - name: Docker compose build
       #   run: docker compose -f Docker-compose.yaml build --no-cache
