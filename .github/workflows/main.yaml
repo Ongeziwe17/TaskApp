@@ -50,6 +50,13 @@ jobs:
           echo "Waiting for SQL Server to start..."
           sleep 20
 
+      - name: Scan Docker Image locally using Trivy
+        run: |
+          wget https://github.com/aquasecurity/trivy/releases/download/v0.62.1/trivy_0.62.1_Linux-64bit.deb
+          sudo dpkg -i trivy_0.62.1_Linux-64bit.deb
+          trivy --version
+          docker images
+          trivy image -f table taskmanager-app:latest
       - name: Tear down containers
         if: always()
         run: docker compose -f Docker-compose.yaml down
@@ -76,18 +83,6 @@ jobs:
       #     format: table
       #     exit-code: 1
       #     ignore-unfixed: true
-
-      - name: Scan Docker Image locally using Trivy
-        run: |
-          wget https://github.com/aquasecurity/trivy/releases/download/v0.62.1/trivy_0.62.1_Linux-64bit.deb
-          sudo dpkg -i trivy_0.62.1_Linux-64bit.deb
-          sudo apt install jq
-          trivy --version
-          jq --version
-          docker images
-          trivy image -f json -o results.json taskmanager-app:latest
-          jq . results.json
-          # trivy image taskmanager-app:latest
       
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
