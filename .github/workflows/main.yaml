@@ -63,6 +63,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
+          no-cache: true
           tags: ${{ steps.vars.outputs.tag }}
           
   # Clone TaskApp-Deploy and update the Docker tag in value.yam for Helm:
