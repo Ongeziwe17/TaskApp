@@ -60,8 +60,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          annotations: ${{ steps.meta.outputs.annotations }} 
+          tags: ${{ steps.vars.outputs.tag }}
           
   # Clone TaskApp-Deploy and update the Docker tag in value.yam for Helm:
   #   runs-on: ubuntu-latest
