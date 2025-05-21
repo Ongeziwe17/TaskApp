@@ -28,11 +28,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5.7.0
         with:
-          # images: ongeziwe17/taskapp:${{ env.tag }}
-
-          images: |
-              name/app
-              ghcr.io/username/app
+         images: ongeziwe17/taskapp:${{ steps.vars }}
           
       - name: Docker Login to Hub Registry
         uses: docker/login-action@v3.4.0
