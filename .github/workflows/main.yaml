@@ -17,12 +17,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Generate image tag from commit and branch
+      - name: Generate image tag from commit
         id: vars
         run: |
           COMMIT=$(git rev-parse --short HEAD)
-          BRANCH=$(echo "${GITHUB_REF##*/}" | tr '/' '-' | tr ':' '-')
-          TAG="$COMMIT-$BRANCH"
+          TAG="$COMMIT"
           echo "tag=$TAG" >> $GITHUB_ENV
 
       - name: Extract Docker metadata
