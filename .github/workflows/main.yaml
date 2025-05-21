@@ -33,11 +33,11 @@ jobs:
 
       # - name: Build Application
       #   run: dotnet build --no-restore --configuration Release
-      # - name: Extract Docker metadata
-      #   id: meta
-      #   uses: docker/metadata-action@v5.7.0
-      #   with:
-      #     images: ongeziwe17/taskapp
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5.7.0
+        with:
+          images: ongeziwe17/taskapp
 
       # - name: Docker compose build
       #   run: docker compose -f Docker-compose.yaml build --no-cache
@@ -88,8 +88,8 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: ${{ github.event_name != 'pull_request' }}
-          # tags: ${{ steps.meta.outputs.tags }}
-          # annotations: ${{ steps.meta.outputs.annotations }} 
+          tags: ${{ steps.meta.outputs.tags }}
+          annotations: ${{ steps.meta.outputs.annotations }} 
           
   # Clone TaskApp-Deploy and update the Docker tag in value.yam for Helm:
   #   runs-on: ubuntu-latest
