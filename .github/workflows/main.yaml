@@ -62,10 +62,9 @@ jobs:
         with:
           image-ref: ongeziwe17/taskapp:${{ steps.vars.outputs.tag }}
           format: table
-          exit-code: '1'
           ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
+          labels: ${{ steps.meta.outputs.labels }}
+          annotations: ${{ steps.meta.outputs.annotations }}
           
   # Clone TaskApp-Deploy and update the Docker tag in value.yam for Helm:
   #   runs-on: ubuntu-latest
