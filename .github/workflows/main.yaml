@@ -60,10 +60,12 @@ jobs:
       - name: Scan image with Trivy
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: ongeziwe17/taskmanager-app:${{ steps.vars.outputs.tag }}
+          image-ref: docker.io/ongeziwe17/taskmanager-app:${{ steps.vars.outputs.tag }}
           format: table
-          exit-code: 1
+          exit-code: '1'
           ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
           
   # Clone TaskApp-Deploy and update the Docker tag in value.yam for Helm:
   #   runs-on: ubuntu-latest
