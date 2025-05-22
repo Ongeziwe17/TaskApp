@@ -63,8 +63,8 @@ jobs:
           image-ref: ongeziwe17/taskapp:${{ steps.vars.outputs.tag }}
           format: table
           ignore-unfixed: true
-          labels: ${{ steps.meta.outputs.labels }}
-          annotations: ${{ steps.meta.outputs.annotations }}
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH,MEDIUM,LOW'
           
   # Clone TaskApp-Deploy and update the Docker tag in value.yam for Helm:
   #   runs-on: ubuntu-latest
