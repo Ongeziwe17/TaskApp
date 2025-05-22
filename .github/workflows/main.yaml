@@ -13,6 +13,8 @@ on:
 jobs: 
   build-and-push:
     runs-on: ubuntu-latest
+    outputs:
+      image-tag: ${{ steps.vars.outputs.tag }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -91,14 +93,14 @@ jobs:
           git --version
           git config --global user.name "${{ secrets.Git_USER_NAME }}" 
           git config --global user.email "${{ secrets.Git_USER_EMAIL }}"
-          git clone ${{ secrets.GITHUB_TOKEN }}:${{ secrets.TASKAPP_DEPLOY_REPOSITORY }}
+          git clone https://${{ secrets.GITHUB_TOKEN }}@${{ secrets.TASKAPP_DEPLOY_REPOSITORY }}
           cd TaskApp-Deploy
 
           echo "Updating Docker tag in values.yaml..."
-          sed -i "s/tag: .*/tag: ${{ steps.vars.outputs.tag }}/" values.yaml
+          sed -i "s/tag: .*/tag: ${{ needs.build-and-push.outputs.image-tag }}/" values.yaml
 
           echo "Commit and push the change..."
           git add values.yaml
-          git commit -m "Update Docker tag to ${{ steps.vars.outputs.tag }}"
+          git commit -m "Update Docker tag to ${{ needs.build-and-push.outputs.image-tag }}"
           git push origin develop
           
