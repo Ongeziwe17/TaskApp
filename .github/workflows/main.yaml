@@ -91,9 +91,9 @@ jobs:
       - name: Setup Ubuntu for GitHub
         run: |
           git --version
-          git config --local user.name "ongeziwe17" 
-          git config --local user.email "ongeziwejunior6@gmail.com"
-          git config --local --list
+          git config --global user.name "ongeziwe17" 
+          git config --global user.email "ongeziwejunior6@gmail.com"
+          git config --global --list
           git clone https://${{ secrets.GIT_TOKEN }}@${{ secrets.TASKAPP_DEPLOY_REPOSITORY }}
           cd TaskApp-Deploy
           ls -a
