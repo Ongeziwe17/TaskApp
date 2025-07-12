@@ -108,5 +108,5 @@ jobs:
           git add values.yaml
           git commit -m "Update Docker tag to ${{ needs.build-and-push.outputs.image-tag }}"
           cat values.yaml
-          git push origin develop
+          git push origin feature/sql-setup
           
