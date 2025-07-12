@@ -5,7 +5,7 @@ on:
     branches: 
       - master
       - develop
-      - feature/sql-server
+      - feature/sql-setup
   
   pull_request:
     branches:
@@ -98,7 +98,7 @@ jobs:
           git clone https://${{ secrets.GIT_TOKEN }}@${{ secrets.TASKAPP_DEPLOY_REPOSITORY }}
           cd TaskApp-Deploy
           ls -a
-          git checkout feature/sql-server
+          git checkout feature/sql-setup
           ls -a
 
           echo "Updating Docker tag in values.yaml..."
